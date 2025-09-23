@@ -91,6 +91,9 @@
         filter: brightness(1.2);
         cursor: pointer;
     }
+    .dropdownItem:active {
+        filter: brightness(.8);
+    }
     #description {
         margin-left: auto;
         margin-right: auto;
@@ -111,6 +114,7 @@
         font-family: Archivo Black;
         margin-left: auto;
         margin-right: auto;
+        margin-top: -20px;
     }
 </style>
 
@@ -123,19 +127,22 @@
             Select Version
         </span>
         <div id="version">select version</div>
-        <span id="changelog" hidden>CHANGELOG</span>
+        <span id="changelog">CHANGELOG</span>
         <span id="description"></span>
         <button id="play">Play</button>
     </div>
 
     <script>
         const versions = [2.175]
-        let selected = ""
-        mouse = {}
+        let selected = versions[0]
         const descriptions = {
             2.175: 'Initial private alpha release',
             2.176: 'Saw addition'
         }
+
+        document.getElementById('version').textContent = versions[0]
+        document.getElementById('description').textContent = descriptions[versions[0]]
+        mouse = {}
         const overlay = document.getElementById('darkoverlay')
         const changelog = document.getElementById('changelog')
         

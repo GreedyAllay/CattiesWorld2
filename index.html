@@ -13,9 +13,12 @@
         justify-content: center;
         width: 100%;
         font-family: Archivo;
-        color: rgb(226, 226, 226)
+        color: rgb(226, 226, 226);
+        user-select: none;
     }
-
+    ::-webkit-scrollbar {
+        display: none;
+    }
     #pane {
         background-color: rgb(109, 48, 48);
         width: 500px;
@@ -65,6 +68,7 @@
         background-color: gray;
         padding: 20px;
         background-color: rgb(160, 71, 71);
+        border-radius: 5px;
     }
     #version:hover {
         cursor: pointer;
@@ -73,6 +77,11 @@
         position: absolute;
         background-color: #363636;
         width: 200px;
+        max-height: 50%;
+        overflow-y: scroll;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, 0.147);
     }
     .dropdownItem {
         padding: 5px;
@@ -96,6 +105,12 @@
         position: absolute;
         width: 100%;
         height: 100%;
+        backdrop-filter: blur(2px);
+    }
+    #changelog {
+        font-family: Archivo Black;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
 
@@ -108,6 +123,7 @@
             Select Version
         </span>
         <div id="version">select version</div>
+        <span id="changelog" hidden>CHANGELOG</span>
         <span id="description"></span>
         <button id="play">Play</button>
     </div>
@@ -121,14 +137,15 @@
             2.176: 'Saw addition'
         }
         const overlay = document.getElementById('darkoverlay')
+        const changelog = document.getElementById('changelog')
+        
         function createDropdown() {
             const dropdown = document.createElement('div')
             const text = document.createElement('span')
-            overlay.className = 'darkoverlay'
             text.textContent = 'select version'
             text.className = 'dropdowntext'
             dropdown.className = 'dropdown'
-            dropdown.style.top = mouse.y
+            dropdown.style.top = window.innerHeight/2
             dropdown.appendChild(text)
             for(let i = 0; i < versions.length; i++) {
                 const item = document.createElement('div')
@@ -144,10 +161,12 @@
                     selected = item.textContent
                     document.getElementById('description').textContent = descriptions[item.textContent]
                     document.getElementById('version').textContent = item.textContent
+                    changelog.hidden = false
+                    overlay.hidden = true
                     dropdown.remove()
                 })
             }
-            overlay.style.hidden = true
+            overlay.hidden = false
             document.body.appendChild(dropdown)
         }
         document.getElementById('version').addEventListener('click', () => {

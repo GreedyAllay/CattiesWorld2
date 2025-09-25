@@ -98,6 +98,8 @@
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
     .dropdowntext {
         margin: 5px;
@@ -133,11 +135,12 @@
     </div>
 
     <script>
-        const versions = [2.175]
+        const versions = [2.176, 2.175]
         let selected = versions[0]
         const descriptions = {
             2.175: 'Initial private alpha release',
-            2.176: 'Saw addition'
+            2.176: `I added saws to the editor, and the ability to toggle wether blocks should float or not,
+            also fixed the bug where objects would freeze in the editor when changed or selected.`
         }
 
         document.getElementById('version').textContent = versions[0]

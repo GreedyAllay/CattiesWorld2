@@ -135,12 +135,13 @@
     </div>
 
     <script>
-        const versions = [2.176, 2.175]
+        const versions = [2.177, 2.176, 2.175]
         let selected = versions[0]
         const descriptions = {
             2.175: 'Initial private alpha release',
             2.176: `I added saws to the editor, and the ability to toggle wether blocks should float or not,
-            also fixed the bug where objects would freeze in the editor when changed or selected.`
+            also fixed the bug where objects would freeze in the editor when changed or selected.`,
+            2.177: `Added blenders, and fixed the main menu loading bug!`
         }
 
         document.getElementById('version').textContent = versions[0]
@@ -174,6 +175,7 @@
                     changelog.hidden = false
                     overlay.hidden = true
                     dropdown.remove()
+                    click()
                 })
             }
             overlay.hidden = false
@@ -181,14 +183,18 @@
         }
         document.getElementById('version').addEventListener('click', () => {
             createDropdown()
+            click()
         })
         document.getElementById('play').addEventListener('click', () => {
             if(selected) {
                 window.location = `versions/CW${selected}.html`
             }
-            
         })
-
+        document.getElementById('play').addEventListener('pointerdown', () => {
+            if(selected) {
+                click(1)
+            }
+        })
         addEventListener('mousemove', (e) => {
             mouse.x = e.clientX
             mouse.y = e.clientY
@@ -201,5 +207,16 @@
                 }
             }
         })
+
+        function click(type) {
+            const audio =  new Audio()
+            if(type == 1) {
+                audio.src = `resources/coolclick.wav`
+            } else {
+                audio.src = `resources/click.wav`
+            }
+            
+            audio.play()
+        }
     </script>
 </body>

@@ -193,5 +193,13 @@
             mouse.x = e.clientX
             mouse.y = e.clientY
         })
+
+        addEventListener('keydown', (e) => {
+            if(e.keyCode == '13') {
+                if(selected) {
+                window.location = `versions/CW${selected}.html`
+                }
+            }
+        })
     </script>
 </body>

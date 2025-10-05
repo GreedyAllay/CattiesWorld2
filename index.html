@@ -100,6 +100,7 @@
         margin-bottom: 20px;
         padding-left: 20px;
         padding-right: 20px;
+        text-align: center;
     }
     .dropdowntext {
         margin: 5px;
@@ -135,7 +136,7 @@
     </div>
 
     <script>
-        const versions = [2.178, 2.177, 2.176, 2.175]
+        const versions = [2.179, 2.178, 2.177, 2.176, 2.175]
         let selected = versions[0]
         const descriptions = {
             2.175: 'Initial private alpha release',
@@ -143,7 +144,9 @@
             also fixed the bug where objects would freeze in the editor when changed or selected.`,
             2.177: `Added blenders, and fixed the main menu loading bug!`,
             2.178: `Added finish line, fixed the vehicle leveldata bug, made your character walk by default
-            when no vehicle is present, fixed the zoom amount not saving properly and fixed the saw lag by removing a visual feature`
+            when no vehicle is present, fixed the zoom amount not saving properly and fixed the saw lag by removing a visual feature`,
+            2.179: `Level browser now loads 5 times faster due to asynchronous loading as opposed to waiting for every thumbnail to load and 
+            then loading the next one. Also improved the looks of the dialog to look more similar to CW1. Nostalgia baby!`
         }
 
         document.getElementById('version').textContent = versions[0]
@@ -169,6 +172,9 @@
                     item.style.backgroundColor = '#313131'
                 } else {
                     item.style.backgroundColor = '#363636'
+                }
+                if(selected == versions[i]) {
+                    item.style.backgroundColor = '#bf5656'
                 }
                 item.addEventListener('click', () => {
                     selected = item.textContent

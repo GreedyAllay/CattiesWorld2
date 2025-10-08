@@ -136,11 +136,8 @@
     </div>
 
     <script>
-        const versions = ['2.180', '2.179', '2.178', '2.177', '2.176', '2.175']
+        const versions = ['2.181', '2.180', '2.179', '2.178', '2.177', '2.176', '2.175']
         let selected = versions[0]
-        fetch("changelog.json")
-        .then(res => res.json)
-        .then(data => { console.log(data)})
         
         const descriptions = {
             '2.175': 'Initial private alpha release',
@@ -151,7 +148,9 @@
             when no vehicle is present, fixed the zoom amount not saving properly and fixed the saw lag by removing a visual feature`,
             '2.179': `Level browser now loads 5 times faster due to asynchronous loading as opposed to waiting for every thumbnail to load and 
             then loading the next one. Breaking a leg doesn't allow you to fly high in the sky anymore. I'm sorry if I just ruined your dream. Also improved the looks of the dialog to look more similar to CW1. Nostalgia baby!`,
-            '2.180': `Added custom textures! (yes this took that long). I also did more patches and small changes but I honestly forgot about that.`
+            '2.180': `Added custom textures! (yes this took that long). I also did more patches and small changes but I honestly forgot about that.`,
+            '2.181': `Added fans! These are work-in-progress, which means THEY ARE NOT FINISHED YET!! Also did some texture changes here and there and fixed the mobile controls
+            not changing when ejecting and stuff bug. Also fixed a small editor bug involving the selection dropdown. (there's still a lot left lol)`
         }
 
         document.getElementById('version').textContent = versions[0]

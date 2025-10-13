@@ -139,31 +139,22 @@
         const versions = ['2.182', '2.181', '2.180', '2.179', '2.178', '2.177', '2.176', '2.175']
         let selected = versions[0]
         
-        const descriptions = {
-            '2.175': 'Initial private alpha release',
-            '2.176': `I added saws to the editor, and the ability to toggle wether blocks should float or not,
-            also fixed the bug where objects would freeze in the editor when changed or selected.`,
-            '2.177': `Added blenders, and fixed the main menu loading bug!`,
-            '2.178': `Added finish line, fixed the vehicle leveldata bug, made your character walk by default
-            when no vehicle is present, fixed the zoom amount not saving properly and fixed the saw lag by removing a visual feature`,
-            '2.179': `Level browser now loads 5 times faster due to asynchronous loading as opposed to waiting for every thumbnail to load and 
-            then loading the next one. Breaking a leg doesn't allow you to fly high in the sky anymore. I'm sorry if I just ruined your dream. Also improved the looks of the dialog to look more similar to CW1. Nostalgia baby!`,
-            '2.180': `Added custom textures! (yes this took that long). I also did more patches and small changes but I honestly forgot about that.`,
-            '2.181': `Added fans! These are work-in-progress, which means THEY ARE NOT FINISHED YET!! Also did some texture changes here and there and fixed the mobile controls
-            not changing when ejecting and stuff bug. Also fixed a small editor bug involving the selection dropdown. (there's still a lot left lol)`,
-            '2.182': `Fans can now shred Cattie, Fans now have a pretty cool spinning animation, Cattie now gets fully paralyzed on death, fixed a bug where the jumping animation wouldn't be shown when not in zombies gamemode,
-            fixed the game showing a white screen instead of a loading screen when loading audio, fixed a miniscule annoyance where a part of the stamina bar wouldn't get the\
-            sprinting effect applied showing a blank yellow corner, added a command to change the game settings, and changed the back button to a green done button for clarity.
-            I also fixed copy pasting in the level editor. 
-            BUT I still want to get the fans working correctly, now, they pull you up and blow you away even when you're next to the fan, and I'm currently trying to implement
-            some very complex math to fix this issue (massive thanks to derpygamer2142 for helping me with the math for this, still trying to implement it correctly (close!)).`
-        }
-
-        document.getElementById('version').textContent = versions[0]
-        document.getElementById('description').textContent = descriptions[versions[0]]
         mouse = {}
         const overlay = document.getElementById('darkoverlay')
-        const changelog = document.getElementById('changelog')
+
+        let changelog
+        fetch("/changelog.json")
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to fetch changelog");
+            return response.json();
+        })
+        .then(data => {
+            changelog = data;
+        document.getElementById('description').textContent = changelog[versions[0]]
+        })
+        .catch(error => console.error("Error:", error));
+
+        document.getElementById('version').textContent = versions[0]
         
         function createDropdown() {
             const dropdown = document.createElement('div')
@@ -188,7 +179,7 @@
                 }
                 item.addEventListener('click', () => {
                     selected = item.textContent
-                    document.getElementById('description').textContent = descriptions[item.textContent]
+                    document.getElementById('description').textContent = changelog[item.textContent]
                     document.getElementById('version').textContent = item.textContent
                     changelog.hidden = false
                     overlay.hidden = true
